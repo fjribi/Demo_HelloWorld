@@ -1,0 +1,110 @@
+/*
+JSON config_file example
+*/
+{
+    "application_name"          : "Hello World - Demo", //only for description purpose
+
+    "version"                   : "0.0.1", //aplication version number to mange versions in pastries max
+    "project_name"              : "proj_Demo_HelloWorld", //project name used when building brownie
+
+    "code_source"               :"github", // instead it could be extra_files (files loaded directly in Extra files field: not supported yet)
+    "compiler_version"          : "0.6.7", //solidity or vyper compiler version
+
+    "github_repo"               : "fjribi/Demo_HelloWorld", //mast include usr or organization / repo, this path is used to build target location (with branche below)
+    "github_repo_isPublic"      : true, // if false => requires user / password (token)
+    "github_user"               : "fjribi", // used when non public 
+
+    "github_branche"            : "master", //repo stable verison branche
+
+    "contract_source_files"     : [
+                                    /*
+                                        relative path in the branche to access solidiy or vyper file in repo folder
+                                    */
+                                    "contracts/HelloWorld.sol" // this is the file name (could be != from contract name in code that defines the compiled json file
+                                    ],
+    "deployable_contracts"      : [
+                                    /*add the list of deployable contracts (exclude librairies, only relevent contract with useful funcitons)
+                                        code_name = contract code name in smart contract and ABI, also used in dropdown list as value (picked)
+                                        label_name = code label that will be displayed for user
+                                    */
+                                        {
+                                            "code_name":"HelloWorld", //as in ABI
+                                            "label_name":"Greeting Contract", // displaye in interface dropdown list
+                                            "user_interface": {
+                                                "deploy_contract":[//list user interface function / input / output
+                                                        {
+                                                            "code_name":"constructor",
+                                                            "label_name":"Deploy Contract",
+                                                            "inputs": [],
+                                                            "outputs":[],
+                                                            "help_text": "To deploy the selected Greeting contract into Blockchain!"
+                                                        }
+                                                    ],
+                                                "write_contract":[//list function / input / output
+                                                        {
+                                                            "code_name":"setGreeting",
+                                                            "label_name":"Set Greeting message",
+                                                            "inputs": [//list input fields
+                                                                  {
+                                                                      "code_name":"_greeting", //name in solidity and in build JSON code
+                                                                      "type": "string" , //build JSON interface type
+                                                                      "pastries_field" :{
+                                                                          "name": "HelloWorld_setGreeting_greeting", //wr =write contreact + function name + code intput )=> unique field name
+                                                                          "label": "Message",
+                                                                          "type": "text",
+                                                                          "max_length": 500,
+                                                                          "required": 1,
+                                                                          "help_text":"Enter Greeting Message"
+                                                                          }
+                                                                  }
+                                                                ],
+                                                            "outputs":[],
+                                                            "help_text": "To set Greeting Message!"
+                                                        }
+                                                    ],
+                                                "read_contract":[//list function / input / output
+                                                        {
+                                                            "code_name":"getGreeting",
+                                                            "label_name":"Get Greeting Message",
+                                                            "inputs": [],
+                                                            "outputs":[ //note that returned variables must be sepcified in source code in retrun statement
+                                                                  {
+                                                                      "code_name":"_greeting", //name in solidity and in build JSON code
+                                                                      "type": "string" , //build JSON interface type
+                                                                      "pastries_field" :{
+                                                                          "name": "HelloWorld_getGreeting_greeting", //wr =write contreact + function name + code intput )=> unique field name
+                                                                          "label": "Greeting Message",
+                                                                          "type": "text",
+                                                                          "max_length": 500,
+                                                                          "required": 1, 
+                                                                          "help_text":"Greeting Message"
+                                                                          }
+                                                                  },
+                                                                  {
+                                                                      "code_name":"_length", //name in solidity and in build JSON code
+                                                                      "type": "uint256" , //build JSON interface type
+                                                                      "pastries_field" :{
+                                                                          "name": "HelloWorld_getGreeting_length", //wr =write contreact + function name + code intput )=> unique field name
+                                                                          "label": "Greeting String Length",
+                                                                          "type": "integer",
+                                                                          "required": 1, 
+                                                                          "help_text":"Greeting String Length"
+                                                                          }
+                                                                  }
+                                                            ],
+                                                            "help_text": "To get the Greeting Message and its length!"
+                                                        }
+                                                    ]
+                                            }
+                                        }
+                                        /* ,{} to add other callable contracts*/
+                                    ],
+
+    "blockchain_networks"     : [
+                                    /* 
+                                        allowed blockchain networks to deploy contracts, codes used in pastries finance docuemntation 
+                                    */
+                                    "ETH-MAINNET", // Ethereum MainNet
+                                    "ETH-KOVAN" //Kovan Test Net
+                                    ]
+}
