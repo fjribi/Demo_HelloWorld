@@ -4,7 +4,7 @@ JSON config_file example
 {
     "application_name"          : "Hello World - Demo", //only for description purpose
 
-    "version"                   : "0.0.3", //aplication version number to mange versions in pastries max
+    "version"                   : "0.0.4", //aplication version number to mange versions in pastries max
     "project_name"              : "proj_Demo_HelloWorld", //project name used when building brownie
 
     "code_source"               :"github", // instead it could be extra_files (files loaded directly in Extra files field: not supported yet)
@@ -106,6 +106,7 @@ JSON config_file example
                                     */
                                     "ETH-MAINNET", // Ethereum MainNet
                                     "ETH-KOVAN", //Kovan Test Net
-                                    "ETH-GOERLI" //Goerli Test Net
+                                    "ETH-GOERLI", //Goerli Test Net
+                                    "ETH-PICCA-TESTNET" //Autonity Piccadilly TestNet 
                                     ]
 }
